@@ -1,9 +1,9 @@
 #!/bin/bash
 
-git config --global user.name "cheshirehat"
-git config --global user.email "cheshireinhatter@gmail.com"
+git config --global user.name ${GITHUB_USER}
+git config --global user.email ${GITHUB_EMAIL}
 
-git remote set-url origin https://cheshirehat:${GITHUB_TOKEN}@github.com/cheshirehat/branch-test.git
+git remote set-url origin https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/cheshirehat/github-actions.git
 
 git branch -a
 
