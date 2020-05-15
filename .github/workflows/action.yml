@@ -17,7 +17,7 @@ jobs:
       - name: install
         run: |
           npm install -g yarn
-          make env
+          make create
     # - name: checkout
     #   uses: actions/checkout@v1
       - name: develop push
