@@ -10,11 +10,25 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: checkout
-      uses: actions/checkout@v1
-    - name: hello
-      env:
-        GITHUB_USER: ${{ secrets.USER }}
-        GITHUB_PASSWORD: ${{ secrets.PASSWORD }}
-        GITHUB_EMAIL: ${{ secrets.EMAIL }}
-      run: ./test.sh
+      - name: setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.16.0
+      - name: install
+        run: |
+          npm install -g yarn
+          make env
+    # - name: checkout
+    #   uses: actions/checkout@v1
+      - name: develop push
+        if: github.repository == 'develop'
+        env:
+          CAT_TEXT: ${{ secrets.CAT_TEXT_DEV }}
+          # GITHUB_USER: ${{ secrets.USER }}
+          # GITHUB_PASSWORD: ${{ secrets.PASSWORD }}
+          # GITHUB_EMAIL: ${{ secrets.EMAIL }}
+        run: ./test.sh
+      - name: master push
+        if: github.repository == 'master'
+        env:
+          CAT_TEXT: ${{ secrets.CAT_TEXT_PROD }}
